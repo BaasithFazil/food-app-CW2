@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
           height: 30.0,
           width: 70.0,
           child: IconButton(onPressed: (){
-            Navigator.pushNamed(context, '/major');
+            Navigator.pushNamed(context, '/headstart');
           }, icon: const Text("Done", style: TextStyle(fontSize: 16, color: Colors.amberAccent, fontWeight: FontWeight.bold),)),
         ),
         dotsDecorator: getDotsDecorator(),

@@ -5,15 +5,14 @@ import 'package:food_app/bottombar/screenC.dart';
 import 'package:food_app/bottombar/screenD.dart';
 
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class BottomBar extends StatefulWidget {
+  const BottomBar({Key? key,}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<BottomBar> createState() => _BottomBarState();
 }
 
-class _HomePageState extends State<HomePage>{
-
+class _BottomBarState extends State<BottomBar>{
 
   int _selectedScreenIndex = 0;
   final List _screens = [
@@ -22,8 +21,6 @@ class _HomePageState extends State<HomePage>{
     {"screen": const ScreenC(), "title": "Screen C Title"},
     {"screen": const ScreenD(), "title": "Screen B Title"},
   ];
-
-
   void _selectScreen(int index) {
     setState(() {
       _selectedScreenIndex = index;
@@ -34,7 +31,6 @@ class _HomePageState extends State<HomePage>{
     return SafeArea(
       child: Scaffold(
         body: _screens[_selectedScreenIndex]["screen"],
-
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedScreenIndex,
@@ -48,7 +44,5 @@ class _HomePageState extends State<HomePage>{
         ),
       ),
     );
-
   }
-
 }

@@ -5,7 +5,7 @@ import 'dart:async';
 
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app/headstart.dart';
+import 'package:food_app/splashscreen/headstart.dart';
 import 'package:food_app/splashscreen/splashscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

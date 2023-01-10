@@ -4,10 +4,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/bottombar/bottombar.dart';
 import 'package:food_app/bottombar/screenA.dart';
-import 'package:food_app/headstart.dart';
-import 'package:food_app/loginpage.dart';
-import 'package:food_app/signup_page.dart';
-import 'package:food_app/splashscreen/homesplash.dart';
+import 'package:food_app/bottombar/screenB.dart';
+import 'package:food_app/constants/materials.dart';
+import 'package:food_app/splashscreen/headstart.dart';
+import 'package:food_app/loginpages/loginpage.dart';
+import 'package:food_app/loginpages/signup_page.dart';
 import 'package:food_app/splashscreen/splashscreen.dart';
 
 
@@ -27,15 +28,18 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: MyColors.blue,
       ),
       home: const SplashScreen(),
-      initialRoute:'/main',
+      initialRoute:'/bottom',
       routes: {
-          '/main': (context) => SplashScreen(),
-          '/major': (context) => HeadStart(),
-        '/first' : (context) => LoginPage(),
-        '/second': (context) => SignUpPage(),
+          '/main': (context) => const SplashScreen(),
+          '/headstart': (context) => const HeadStart(),
+        '/login' : (context) => const LoginPage(),
+        '/signup': (context) => const SignUpPage(),
+        '/screenA': (context) => const ScreenA(),
+        '/screenB': (context) => const ScreenB(),
+        '/bottom': (context) => const BottomBar(),
       },
     );
   }

@@ -51,7 +51,7 @@ class HeadStart extends StatelessWidget {
                       height: 50.0,
                       width: double.infinity,
                       child: ElevatedButton(onPressed: (){
-                        Navigator.pushNamed(context, '/first');
+                        Navigator.pushNamed(context, '/login');
                       }, child: const Text("Login"))
                     ),
                   ),
@@ -72,7 +72,7 @@ class HeadStart extends StatelessWidget {
                         ),
                         child: ElevatedButton(
                             onPressed: (){
-                              Navigator.pushNamed(context, '/second');
+                              Navigator.pushNamed(context, '/signup');
                             },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.amber,

@@ -1,10 +1,12 @@
-import 'dart:io';
 
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app/bottombar/screenA.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:food_app/bottombar/bottombar.dart';
+import 'package:food_app/constants/lists.dart';
+import 'package:food_app/constants/materials.dart';
+import 'package:food_app/constants/widgets.dart';
+import 'package:food_app/loginpages/signup_page.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -19,7 +21,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
-  final Uri _url = Uri.parse("/second");
 
   static Future<User?>loginUsingEmailPassword({required String email, required String password, required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -29,8 +30,8 @@ class _LoginPageState extends State<LoginPage> {
       user = userCredential.user;
 
     } on FirebaseAuthException catch (e) {
-      if(e.code == "user not found"){
-        print("No User found for that email");
+      if(e.code == errorMessages.elementAt(0)){
+        print(errorMessages.elementAt(1));
       }
     }
     return user;
@@ -44,24 +45,24 @@ class _LoginPageState extends State<LoginPage> {
 
     bool email = false;
 
-    @override
-    void dispose() {
-      emailController.dispose();
-      passwordController.dispose();
-      super.dispose();
-    }
 
     return Scaffold(
       body: ColorfulSafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                child: Padding(
+                  padding: MyPadding.mainPaddingA,
+                  child: Text(labels.elementAt(0), style: MyStyle.subtitle,),
+                ),
+              ),
               Container(
                 height: 350,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("assets/vector/vector.jpg"),
+                    image: AssetImage(Images.elementAt(0)),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -70,63 +71,58 @@ class _LoginPageState extends State<LoginPage> {
                 child: Form(
                   key: _formKey,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: MyAlignment.crossAxisA,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Container(
-                          child: Text("Email Address", style: TextStyle(fontSize: 18),),
+                        padding: MyPadding.paddingE,
+                        child: SizedBox(
+                          child: Text(labels.elementAt(1), style: MyStyle.imageName),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: MyPadding.paddingE,
                         child: TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty || !value.contains("@")) {
-                              return "Please Enter Correct Email";
+                              return errorMessages.elementAt(2);
                             }
                             return null;
                           },
                           controller: emailController,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: "Enter Username",
+                            border: const OutlineInputBorder(),
+                            hintText: labels.elementAt(2),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 15.0),
-                        child: Container(
-                          child: Text("Password", style: TextStyle(fontSize: 18),),
+                        padding:MyPadding.paddingE,
+                        child: SizedBox(
+                          child: Text(labels.elementAt(3), style: MyStyle.imageName),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: MyPadding.paddingE,
                         child: TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty || !value.contains("@")) {
-                              return "Please enter the password";
+                              return labels.elementAt(4);
                             }
                             return null;
                           },
                           controller: passwordController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: "Enter Password",
+                            border: const OutlineInputBorder(),
+                            hintText: labels.elementAt(5),
                           ),
 
                         ),
                       ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
+                      const CustomBox(height: 5.0, width: 0.0),
                       Padding(
-                        padding: const EdgeInsets.only(left: 15.0, right: 15.0,),
-                        child: Container(
+                        padding: MyPadding.paddingF,
+                        child: SizedBox(
                           height: 50.0,
                           width: double.infinity,
                           child: ElevatedButton(
@@ -138,27 +134,37 @@ class _LoginPageState extends State<LoginPage> {
                                   emailController.text.isEmpty ? email = true : email =  false;
                                   if (user != null || _formKey.currentState!.validate()) {
                                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Processing")));
-                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const ScreenA()));
+                                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const BottomBar()));
                                   }
                                 });
                               },
-                              child: const Text("Login", style: TextStyle(fontSize: 20),),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.amber,
+                              backgroundColor: MyColors.amber,
                             ),
+                              child: Text(labels.elementAt(0), style: MyStyle.buttonStyle),
                           ),
                         ),
                       ),
-                      Container(
+                    Padding(
+                      padding: MyPadding.paddingG,
+                      child: SizedBox(
+                        width: double.infinity,
                         child: Row(
                           children: [
-                            Text("Don't have and account"),
-                            ElevatedButton(onPressed: _launchUrl,
-
-                                child: const Text("Let's SignUp"))
+                            Text(labels.elementAt(6), style: MyStyle.imageName),
+                            InkWell(
+                              onTap: (){
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(builder: (BuildContext context) => const SignUpPage()),
+                                    ModalRoute.withName('/headstart')
+                                );
+                              },
+                                child: Text(labels.elementAt(7), style: MyStyle.linkButton, textAlign: TextAlign.center,)),
                           ],
                         ),
                       ),
+                    ),
                     ],
                   ),
                 ),
@@ -168,11 +174,6 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw 'Could not launch $_url';
-    }
   }
 }
 

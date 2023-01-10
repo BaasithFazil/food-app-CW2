@@ -1,117 +1,230 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/constants/lists.dart';
+import 'package:food_app/constants/materials.dart';
+import 'package:food_app/constants/widgets.dart';
+import 'package:food_app/detail.dart';
+import 'package:food_app/module.dart';
 
 
-class ScreenA extends StatelessWidget {
+
+class ScreenA extends StatefulWidget {
+  static const routeName = '/extractArguments';
   const ScreenA({super.key});
 
+  @override
+  State<ScreenA> createState() => _ScreenAState();
+}
+
+class _ScreenAState extends State<ScreenA> {
+  final user = FirebaseAuth.instance.currentUser;
+
+  String _textSelect(String str) {
+    str = str.replaceAll('e', 'é');
+    str = str.replaceAll('i', 'I');
+    str = str.replaceAll('b', '*');
+    str = str.replaceAll('v', '<');
+    return str;
+  }
 
   @override
   Widget build(BuildContext context) {
-
-
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
+              padding:
+                  MyPadding.mainPadding,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MyAlignment.mainAxis,
+                crossAxisAlignment: MyAlignment.crossAxis,
                 children: [
                   const CircleAvatar(),
-                  const Text("Food App"),
-                  IconButton(onPressed: (){
-                    Navigator.pushReplacementNamed(context, '/first');
-                  }, icon: const Icon(Icons.exit_to_app)),
-
+                  Text(titles.first),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/login');
+                      },
+                      icon: MyIcons.exit),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: SizedBox(
-                width: double.infinity,
+                width: Size.max,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Text("Get your food", style: TextStyle(fontSize: 20.0, color: Colors.grey),),
-                    Text("Quick Delivery", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                  crossAxisAlignment: MyAlignment.crossAxisA,
+                  mainAxisAlignment: MyAlignment.mainAxisA,
+                  children: [
+                    Text(
+                      "Welcome ${user?.email!.replaceAll(RegExp('[^A-Za-z]'), '').replaceAll("com", "").replaceAll("gmail", "")}",
+                      style: const TextStyle(fontSize: 22, color: Colors.grey),
+                    ),
+                    const CustomBox(height: 10.0, width: 0),
+                    Text(titles.elementAt(1),
+                      style: MyStyle.subtitle,
+                    ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: 15.0,
-            ),
+            const CustomBox(height: 15.0, width: 0.0),
             SizedBox(
-              width: double.infinity,
+              width: Size.max,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: MyAlignment.crossAxisA,
                 children: [
-                  const Text("Categories", style: TextStyle(fontSize: 26,),),
+                  Text(
+                    titles.elementAt(2),
+                    style: MyStyle.subElement,
+                  ),
                   SizedBox(
-                    width: double.infinity,
+                    width: Size.max,
                     height: 150.0,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: 4,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: MyPadding.mainPaddingA,
                             child: Container(
                               width: 90.0,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  color: Colors.red
-                              ),
+                                  borderRadius: MyRadius.mainRadius,
+                                  color: MyColors.red),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(Icons.add),
-                                  const Text("Pizza"),
-                                  IconButton(onPressed: (){}, icon: const Icon(Icons.add)),
+                                  SizedBox(
+                                      height: 50.0,
+                                      width: 50.0,
+                                      child: Image.asset(smallImages[index])),
+                                  Text(
+                                    smallImagesNames[index],
+                                    style: MyStyle.imageName,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: InkWell(
+                                          onTap: () {},
+                                          child: MyIcons.arrow)),
                                 ],
                               ),
                             ),
                           );
                         }),
                   ),
-                  const Text("Popular Now", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
-
+                  Row(
+                    mainAxisAlignment: MyAlignment.mainAxis,
+                    children: [
+                      Text(
+                        titles.elementAt(3),
+                        style: MyStyle.subtitle,
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Padding(
+                          padding: MyPadding.paddingC,
+                          child: Text(
+                            smallImagesNames.elementAt(4),
+                            style: MyStyle.imageName,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(
-                    width: double.infinity,
-                    height: 200.0,
+                    width: Size.max,
+                    height: 270.0,
                     child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 5,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
+                      scrollDirection: MyAlignment.crossAxisB,
+                      itemCount: items.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = items[index];
+                        return Padding(
+                          padding: MyPadding.mainPaddingA,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailsScreen(
+                                            item: item,
+                                          )));
+                            },
                             child: Container(
-                              width: 150,
+                              width: 200,
                               height: 120.0,
                               decoration: BoxDecoration(
-                                color: Colors.green,
-                                borderRadius: BorderRadius.circular(15.0),
+                                color: MyColors.white,
+                                borderRadius: MyRadius.mainRadiusA,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: MyColors.greyA,
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 140.0,
+                                    width: Size.max,
+                                    decoration: BoxDecoration(
+                                      borderRadius: MyRadius.mainRadiusA,
+                                    ),
+                                    child: Image.asset(
+                                      foodImages[index],
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    child: Text(
+                                      foodNames[index],
+                                      style: MyStyle.foodNames,
+                                    ),
+                                  ),
+                                  const CustomBox(height: 5.0, width: 0.0),
+                                  Padding(
+                                    padding: MyPadding.paddingD,
+                                    child: SizedBox(
+                                      child: Text(
+                                        foodDescription[index],
+                                        style: MyStyle.foodDescription,
+                                      ),
+                                    ),
+                                  ),
+                                  const CustomBox(height: 5.0, width: 0.0),
+                                  SizedBox(
+                                    // ignore: prefer_interpolation_to_compose_strings
+                                    child: Text(
+                                      "Price " + foodPrice[index],
+                                      style: MyStyle.foodPrice,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        }),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),
             ),
           ],
-
         ),
       ),
     );
   }
 }
-
 logOut() {
   FirebaseAuth.instance.signOut();
 }
+
+
+// 
