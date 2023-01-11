@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/constants/lists.dart';
 import 'package:food_app/constants/materials.dart';
-import 'package:food_app/loginpages/loginpage.dart';
+import 'package:food_app/loginpages/login_page.dart';
 
 
 class SignUpPage extends StatefulWidget {

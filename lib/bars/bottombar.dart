@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/bars/screenA.dart';
-import 'package:food_app/bars/screenB.dart';
-import 'package:food_app/bars/screenC.dart';
-import 'package:food_app/bars/screenD.dart';
+import 'package:food_app/bars/home.dart';
+import 'package:food_app/bars/food.dart';
+import 'package:food_app/bars/order.dart';
+import 'package:food_app/bars/payment.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({Key? key,}) : super(key: key);
@@ -31,7 +31,7 @@ class _BottomBarState extends State<BottomBar>{
       child: Scaffold(
         body: _screens[_selectedScreenIndex]["screen"],
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Color(0xC4C0B205),
+          selectedItemColor: const Color(0xC4C0B205),
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedScreenIndex,
           onTap: _selectScreen,

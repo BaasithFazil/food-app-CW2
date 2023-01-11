@@ -94,4 +94,16 @@ List foodPrice = [
   "700/=",
 ];
 
+List userFace = [
+  "Logs",
+  "Old Statistics",
+  "Available Foods",
+  "User Engagement",
+];
 
+List userEngagement = [
+  "20",
+  "30",
+  "40",
+  "50",
+];

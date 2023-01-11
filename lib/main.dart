@@ -3,13 +3,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/bars/bottombar.dart';
-import 'package:food_app/bars/screenA.dart';
-import 'package:food_app/bars/screenB.dart';
+import 'package:food_app/bars/home.dart';
+import 'package:food_app/bars/food.dart';
 import 'package:food_app/constants/materials.dart';
 import 'package:food_app/splashscreen/headstart.dart';
-import 'package:food_app/loginpages/loginpage.dart';
+import 'package:food_app/loginpages/login_page.dart';
 import 'package:food_app/loginpages/signup_page.dart';
-import 'package:food_app/splashscreen/splashscreen.dart';
+import 'package:food_app/splashscreen/splash_screen.dart';
 
 
 void main() async {

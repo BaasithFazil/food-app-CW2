@@ -15,7 +15,7 @@ class _CustomTabBarState extends State<CustomTabBar> with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    TabController _tabController =
+    TabController tabController =
     TabController(length: 3, vsync: this);
     double width = MediaQuery.of(context).size.width;
     return Column(
@@ -26,7 +26,7 @@ class _CustomTabBarState extends State<CustomTabBar> with TickerProviderStateMix
             alignment: Alignment.bottomLeft,
             child: TabBar(
               isScrollable: true,
-              controller: _tabController,
+              controller: tabController,
               labelColor: Colors.blueAccent,
               indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
@@ -44,7 +44,7 @@ class _CustomTabBarState extends State<CustomTabBar> with TickerProviderStateMix
         SizedBox(
           height: 350.0,
           child: TabBarView(
-              controller: _tabController,
+              controller: tabController,
               children: const [
                 SizedBox(child: Text("Hello"),),
                 SizedBox(child: Text("world"),),

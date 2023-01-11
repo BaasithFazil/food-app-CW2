@@ -4,7 +4,7 @@ import 'package:food_app/constants/lists.dart';
 import 'package:food_app/constants/materials.dart';
 import 'package:food_app/constants/widgets.dart';
 import 'package:food_app/items.dart';
-import 'module.dart';
+import 'package:food_app/modal.dart';
 
 class DetailsScreen extends StatelessWidget {
   final ItemModel item;
@@ -142,7 +142,7 @@ class DetailsScreen extends StatelessWidget {
                                                       borderRadius: MyRadius.radiusB,
                                                         child: Image.asset(foodImages[index], fit: BoxFit.cover,)),
                                                   ),
-                                                Container(
+                                                SizedBox(
                                                   child: Column(
                                                     children: [
                                                       Text(foodNames[index], style: MyStyle.foodNames),
