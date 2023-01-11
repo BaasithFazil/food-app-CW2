@@ -3,10 +3,11 @@
 
 
 List titles = [
-  "Food App",
+  "Food",
   "Quick Delivery Available!",
   "Categories",
   "Popular Now",
+  "App",
 ];
 
 List labels = [
@@ -35,7 +36,6 @@ List errorMessages = [
   "User not found",
   "No User found for that email",
   "Please Enter Correct Email",
-
 ];
 
 

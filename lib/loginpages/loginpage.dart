@@ -2,7 +2,7 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app/bottombar/bottombar.dart';
+import 'package:food_app/bars/bottombar.dart';
 import 'package:food_app/constants/lists.dart';
 import 'package:food_app/constants/materials.dart';
 import 'package:food_app/constants/widgets.dart';

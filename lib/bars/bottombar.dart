@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/bottombar/screenA.dart';
-import 'package:food_app/bottombar/screenB.dart';
-import 'package:food_app/bottombar/screenC.dart';
-import 'package:food_app/bottombar/screenD.dart';
-
+import 'package:food_app/bars/screenA.dart';
+import 'package:food_app/bars/screenB.dart';
+import 'package:food_app/bars/screenC.dart';
+import 'package:food_app/bars/screenD.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({Key? key,}) : super(key: key);
@@ -32,14 +31,15 @@ class _BottomBarState extends State<BottomBar>{
       child: Scaffold(
         body: _screens[_selectedScreenIndex]["screen"],
         bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Color(0xC4C0B205),
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedScreenIndex,
           onTap: _selectScreen,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Screen A'),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Screen B"),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Screen C"),
-            BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Screen D"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home',),
+            BottomNavigationBarItem(icon: Icon(Icons.production_quantity_limits), label: "Food Items"),
+            BottomNavigationBarItem(icon: Icon(Icons.reorder_outlined), label: "Order"),
+            BottomNavigationBarItem(icon: Icon(Icons.payment_outlined), label: "payment"),
           ],
         ),
       ),

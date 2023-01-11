@@ -65,10 +65,18 @@ class Size {
 //TextStyle
 class MyStyle {
   static const subtitle = TextStyle(
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: FontWeight.bold,
     fontFamily: 'Roboto',
   );
+  static const maintitle = TextStyle(
+    fontSize: 26,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Roboto',
+    color: Colors.yellow
+  );
+
+
   static const subElement = TextStyle(
     fontSize: 24,
   );

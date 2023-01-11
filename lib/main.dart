@@ -2,9 +2,9 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app/bottombar/bottombar.dart';
-import 'package:food_app/bottombar/screenA.dart';
-import 'package:food_app/bottombar/screenB.dart';
+import 'package:food_app/bars/bottombar.dart';
+import 'package:food_app/bars/screenA.dart';
+import 'package:food_app/bars/screenB.dart';
 import 'package:food_app/constants/materials.dart';
 import 'package:food_app/splashscreen/headstart.dart';
 import 'package:food_app/loginpages/loginpage.dart';
@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
       home: const SplashScreen(),
       initialRoute:'/bottom',
       routes: {
-          '/main': (context) => const SplashScreen(),
-          '/headstart': (context) => const HeadStart(),
+        '/main': (context) => const SplashScreen(),
+        '/headstart': (context) => const HeadStart(),
         '/login' : (context) => const LoginPage(),
         '/signup': (context) => const SignUpPage(),
         '/screenA': (context) => const ScreenA(),
@@ -59,7 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
     return firebaseApp;
 
-
   }
   @override
   Widget build(BuildContext context) {
@@ -71,7 +70,9 @@ class _MyHomePageState extends State<MyHomePage> {
             return const LoginPage();
           }
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Colors.yellow,
+            ),
           );
         },
       ),

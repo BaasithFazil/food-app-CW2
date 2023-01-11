@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/bars/screenB.dart';
+import 'package:food_app/bars/screenC.dart';
 import 'package:food_app/constants/lists.dart';
 import 'package:food_app/constants/materials.dart';
 import 'package:food_app/constants/widgets.dart';
 import 'package:food_app/detail.dart';
+import 'package:food_app/loginpages/userpage.dart';
 import 'package:food_app/module.dart';
 
 
@@ -19,13 +22,6 @@ class ScreenA extends StatefulWidget {
 class _ScreenAState extends State<ScreenA> {
   final user = FirebaseAuth.instance.currentUser;
 
-  String _textSelect(String str) {
-    str = str.replaceAll('e', 'é');
-    str = str.replaceAll('i', 'I');
-    str = str.replaceAll('b', '*');
-    str = str.replaceAll('v', '<');
-    return str;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +36,35 @@ class _ScreenAState extends State<ScreenA> {
                 mainAxisAlignment: MyAlignment.mainAxis,
                 crossAxisAlignment: MyAlignment.crossAxis,
                 children: [
-                  const CircleAvatar(),
-                  Text(titles.first),
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => UserPage()));
+                    },
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/avatar.png"),
+                            fit:  BoxFit.cover,
+                          ),
+                          color: Colors.yellow,
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      text: titles.first,
+                      style: MyStyle.subtitle,
+                      children: [
+                        TextSpan(
+                          text: titles.elementAt(4),
+                          style: MyStyle.maintitle,
+                        )
+                      ],
+                    ),
+                  ),
                   IconButton(
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/login');
@@ -93,7 +116,7 @@ class _ScreenAState extends State<ScreenA> {
                               width: 90.0,
                               decoration: BoxDecoration(
                                   borderRadius: MyRadius.mainRadius,
-                                  color: MyColors.red),
+                                  color: MyColors.amber.withOpacity(0.8)),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -106,9 +129,12 @@ class _ScreenAState extends State<ScreenA> {
                                     style: MyStyle.imageName,
                                   ),
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                      },
                                       icon: InkWell(
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenB()));
+                                          },
                                           child: MyIcons.arrow)),
                                 ],
                               ),
@@ -124,7 +150,9 @@ class _ScreenAState extends State<ScreenA> {
                         style: MyStyle.subtitle,
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenB()));
+                        },
                         child: Padding(
                           padding: MyPadding.paddingC,
                           child: Text(
