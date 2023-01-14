@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/bars/order.dart';
+import 'package:food_app/bars/single_item.dart';
+
 
 
 class ScreenB extends StatefulWidget {
@@ -80,6 +83,7 @@ class _ScreenBState extends State<ScreenB> {
                                       padding: const EdgeInsets.all(10.0),
                                   child: ElevatedButton(
                                     onPressed: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SinglePage()));
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.amberAccent,

@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -40,39 +41,184 @@ class Foods {
     return parseData(response.body);
   }
 }
+class FoodPack {
+  final String name;
+  final String price;
+
+  FoodPack({required this.name, required this.price});
+}
+
 
 
 class ScreenC extends StatefulWidget {
-  const ScreenC({super.key});
+  const ScreenC({super.key,});
 
   @override
   State<ScreenC> createState() => _ScreenCState();
 }
 
 class _ScreenCState extends State<ScreenC> {
+  void _showDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Thank You'),
+            content: const Text('We will recieve your information. Thankyou for ordering'),
+            actions: [
+              MaterialButton(
+                color: Colors.deepPurple[200],
+                onPressed: () {
+                  // do something
+                  print('Ok button pressed');
+                },
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        });
+  }
+    final _formKey = GlobalKey<FormState>();
+    final addressController = TextEditingController();
+    final cnameController = TextEditingController();
+    final fnameController = TextEditingController();
+    final priceController = TextEditingController();
+
+
+  bool loading = false;
+  final databaseRef = FirebaseDatabase.instance.ref('Order');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Hello"),
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20.0,
+              width: double.infinity,
+              child: Text("Please fill the order details here", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+            ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Form(
+                key: _formKey,
+                child:
+                    Column(
+                      children :[TextFormField(
+                  controller: addressController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
+                  validator: (value){
+                    if (value == null || value.isEmpty) {
+                      return "Please provide the name";
+                    }
+                    return null;
+                  },
+                ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextFormField(
+                          controller: cnameController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                          ),
+                          validator: (value){
+                            if (value == null || value.isEmpty) {
+                              return "Please provide the name";
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextFormField(
+                          controller: fnameController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                          ),
+                          validator: (value){
+                            if (value == null || value.isEmpty) {
+                              return "Please provide the name";
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextFormField(
+                          controller: priceController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                          ),
+                          validator: (value){
+                            if (value == null || value.isEmpty) {
+                              return "Please provide the name";
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        ElevatedButton(
+                            onPressed: (){
+                              final snackBar = SnackBar(
+                                content: Text("Data Added Successfully"),
+                                backgroundColor: (Colors.black),
+                                action: SnackBarAction(
+                                  label: "dismiss",
+                                  onPressed: (){
+                                  },
+                                ),
+                              );
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  databaseRef.child(DateTime.now().millisecondsSinceEpoch.toString()).set({
+                                    "CustomerAddress" : addressController.text.toString(),
+                                    "CustomerName" : cnameController.text.toString(),
+                                    "FoodName" : fnameController.text.toString(),
+                                    "FoodPrice" : priceController.text.toString(),
+
+                                  });
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                  _showDialog();
+                                });
+                              }
+                              addressController.text = "";
+                              cnameController.text = "";
+                              fnameController.text = "";
+                              priceController.text = "";
+
+                            }, child: Text("Post"))
+                ],
+              ),
+              ),
+          ],
+        ),
       ),
-      body: Container()
-//       body: FutureBuilder<List<Foods>> (
-//         // future: fetchData(),
-//         builder: (context, snapshot) {
-//           if (snapshot.hasError) {
-//             return const Center(
-//               child: Text('An error has occurred!'),
-//             );
-//           } else if (snapshot.hasData) {
-//             return PhotosList(photos: snapshot.data!);
-//           } else {
-//             return const Center(
-//               child: CircularProgressIndicator(),
-//             );
-//           }
-//         },
-//       ),
     );
   }
 }

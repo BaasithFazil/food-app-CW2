@@ -56,6 +56,7 @@ List foodImages = [
 
 List vectorImages = [
   "assets/vector/vector.jpg",
+  "assets/vector/signup.jpg",
 ];
 
 List Images = [

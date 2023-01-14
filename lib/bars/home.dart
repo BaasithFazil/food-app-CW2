@@ -243,10 +243,7 @@ class _ScreenAState extends State<ScreenA> {
                         },
                       ),
                     ),
-
-
                   ],
-
                 ),
               ),
             SizedBox(
@@ -268,13 +265,13 @@ class _ScreenAState extends State<ScreenA> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
                               Text(
-                                'Rounded card',
+                                'Category',
                                 style:
                                 TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                               SizedBox(height: 12),
                               Text(
-                                'This card is rounded',
+                                'Variety of food items available.',
                                 style: TextStyle(fontSize: 20),
                               )
                             ],

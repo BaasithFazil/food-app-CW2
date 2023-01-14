@@ -42,7 +42,7 @@ class _SignUpPageState extends State<SignUpPage> {
               decoration: BoxDecoration(
                 color: MyColors.grey,
                 image: DecorationImage(
-                  image: AssetImage(vectorImages.elementAt(0)),
+                  image: AssetImage(vectorImages.elementAt(1)),
                   fit: BoxFit.cover,
                 ),
               ),
