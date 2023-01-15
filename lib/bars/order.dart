@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/bars/payment.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -93,130 +94,172 @@ class _ScreenCState extends State<ScreenC> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20.0,
-              width: double.infinity,
-              child: Text("Please fill the order details here", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
               SizedBox(
-                height: 20.0,
+                height: 10.0,
               ),
-              Form(
-                key: _formKey,
-                child:
-                    Column(
-                      children :[TextFormField(
-                  controller: addressController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
+              Container(
+                height: 250.0,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/order.jpg"),
+
                   ),
-                  validator: (value){
-                    if (value == null || value.isEmpty) {
-                      return "Please provide the name";
-                    }
-                    return null;
-                  },
                 ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: cnameController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                          ),
-                          validator: (value){
-                            if (value == null || value.isEmpty) {
-                              return "Please provide the name";
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: fnameController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                          ),
-                          validator: (value){
-                            if (value == null || value.isEmpty) {
-                              return "Please provide the name";
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: priceController,
-                          decoration: InputDecoration(
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                          ),
-                          validator: (value){
-                            if (value == null || value.isEmpty) {
-                              return "Please provide the name";
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        ElevatedButton(
-                            onPressed: (){
-                              final snackBar = SnackBar(
-                                content: Text("Data Added Successfully"),
-                                backgroundColor: (Colors.black),
-                                action: SnackBarAction(
-                                  label: "dismiss",
-                                  onPressed: (){
-                                  },
-                                ),
-                              );
-                              if (_formKey.currentState!.validate()) {
-                                setState(() {
-                                  databaseRef.child(DateTime.now().millisecondsSinceEpoch.toString()).set({
-                                    "CustomerAddress" : addressController.text.toString(),
-                                    "CustomerName" : cnameController.text.toString(),
-                                    "FoodName" : fnameController.text.toString(),
-                                    "FoodPrice" : priceController.text.toString(),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 15.0),
+                height: 20.0,
+                width: double.infinity,
+                child: Text("Please fill the order details here", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+              ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Form(
+                  key: _formKey,
+                  child:
+                      Column(
+                        children :[
+                          TextFormField(
 
-                                  });
-                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                  _showDialog();
-                                });
+                    controller: addressController,
+                    decoration: InputDecoration(
+                      hintText: "Address to deliver...",
+                      labelText: "Address",
+                      labelStyle: TextStyle(fontSize: 20.0, color: Colors.amber),
+                      hintStyle: TextStyle(fontSize: 18.0),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                    ),
+                    validator: (value){
+                      if (value == null || value.isEmpty) {
+                        return "Please provide the name";
+                      }
+                      return null;
+                    },
+                  ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: cnameController,
+                            decoration: InputDecoration(
+                              hintText: "Customer Name",
+                              labelText: "Customer",
+                              labelStyle: TextStyle(fontSize: 20.0, color: Colors.amber),
+                              hintStyle: TextStyle(fontSize: 18.0),
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                            ),
+                            validator: (value){
+                              if (value == null || value.isEmpty) {
+                                return "Please provide the name";
                               }
-                              addressController.text = "";
-                              cnameController.text = "";
-                              fnameController.text = "";
-                              priceController.text = "";
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: fnameController,
+                            decoration: InputDecoration(
+                              hintText: "Food Name",
+                              labelText: "Food Name",
+                              labelStyle: TextStyle(fontSize: 20.0, color: Colors.amber),
+                              hintStyle: TextStyle(fontSize: 18.0),
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                            ),
+                            validator: (value){
+                              if (value == null || value.isEmpty) {
+                                return "Please provide the name";
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: priceController,
+                            decoration: InputDecoration(
+                              hintText: "Price",
+                              labelText: "Price",
+                              labelStyle: TextStyle(fontSize: 20.0, color: Colors.amber),
+                              hintStyle: TextStyle(fontSize: 18.0),
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                            ),
+                            validator: (value){
+                              if (value == null || value.isEmpty) {
+                                return "Please provide the name";
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          ElevatedButton(
+                              onPressed: (){
+                                final snackBar = SnackBar(
+                                  content: Text("Data Added Successfully"),
+                                  backgroundColor: (Colors.black),
+                                  action: SnackBarAction(
+                                    label: "dismiss",
+                                    onPressed: (){
+                                    },
+                                  ),
+                                );
+                                if (_formKey.currentState!.validate()) {
+                                  setState(() {
+                                    databaseRef.child(DateTime.now().millisecondsSinceEpoch.toString()).set({
+                                      "CustomerAddress" : addressController.text.toString(),
+                                      "CustomerName" : cnameController.text.toString(),
+                                      "FoodName" : fnameController.text.toString(),
+                                      "FoodPrice" : priceController.text.toString(),
 
-                            }, child: Text("Post"))
-                ],
-              ),
-              ),
-          ],
+                                    });
+                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                    _showDialog();
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ScreenD()));
+                                  });
+                                }
+                                addressController.text = "";
+                                cnameController.text = "";
+                                fnameController.text = "";
+                                priceController.text = "";
+
+
+
+                              }, child: Text("Proceed to Pay", style: TextStyle(fontSize: 20),),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.amber,
+
+                            ),
+                          )
+                  ],
+                ),
+                ),
+            ],
+          ),
         ),
       ),
     );
